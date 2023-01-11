@@ -1,0 +1,6 @@
+Dependencies needed: (type into cmd)
+python
+pip install opencv-python
+pip install pyzbar
+pip install flask
+pip install flask_basicauth
