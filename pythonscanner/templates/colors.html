@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>QR Code Color Changer</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+let prevDataLength;
+$.ajax({
+    url: '/data',
+    type: 'GET',
+    success: function(data) {
+        prevDataLength = data.length;
+        $("#color-container").css("background-color", "red"); 
+    }
+});
+
+setInterval(function() {
+  $.ajax({
+    url: '/data',
+    type: 'GET',
+    success: function(data) {
+      // Check if there is any new QR code data
+      if (data.length > prevDataLength) {
+        prevDataLength = data.length;
+        // Change the color of the container to green
+        $("#color-container").css("background-color", "green");
+
+        // Wait for one second before changing the color back to red
+        setTimeout(function() {
+          $("#color-container").css("background-color", "red");
+        }, 4000);
+      }
+    }
+  });
+}, 1000);
+
+
+    </script>
+    <style>
+      #color-container {
+        width: 1920px;
+        height: 1080px;
+        background-color: red; /* Default color */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="color-container"></div>
+  </body>
+</html>

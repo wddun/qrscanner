@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>QR Code Scanner</title>
+    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+    <link rel="icon" type="image/jpg" href="/static/logo.jpg">
+
+
+  </head>
+  <body>
+    <a href="admin">Admin Panel</a>
+    <img src="/static/logo.jpg" alt="Logo" style="width: 128px; height: 128px;">
+    <h1 style="font-family: 'Merriweather', serif;">Scanned QR Code Data:</h1>
+    <ul id="data" style="font-family: 'Merriweather', serif;"></ul>
+
+    <script>
+      function updateData() {
+        // Make a GET request to the /data endpoint
+        fetch('/data')
+          .then(response => response.json())
+          .then(data => {
+            // Clear the data list
+            const dataList = document.getElementById('data');
+            dataList.innerHTML = '';
+
+            // Populate the data list with the new data in reverse order
+            for (let i = data.length - 1; i >= 0; i--) {
+              const item = document.createElement('li');
+              item.textContent = data[i];
+              item.style.fontSize = '60px';
+              dataList.appendChild(item);
+            }
+          });
+      }
+
+      // Update the data every 1 second
+      setInterval(updateData, 1000);
+    </script>
+  </body>
+</html>
