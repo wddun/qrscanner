@@ -1,0 +1,1 @@
+python qrcodescanner.py
